@@ -1,0 +1,157 @@
+//Global
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; //use Roboto or Lato
+    background-color: #f7f6ff;
+    background-color: #2f3640;
+    color: white;
+}
+
+//variables
+$main-wall: #2f3640;
+$list-wall: #f7f6ff;
+
+//dropdown list
+// udělat v js active toggle class
+//change to main??
+main {
+    margin-top: 50px;
+    padding: 32px;
+    height: 400px;
+}
+
+.select-box {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin: 0 auto;
+    .selected {
+        padding: 12px 24px;
+        margin-bottom: 8px;
+        position: relative;
+        color: #f5f6fa;
+        color: #2f3640;
+        background-color: #2f3640;
+        background-color: #f7f6ff;
+        border-radius: 8px;
+        cursor: pointer;
+        &::after {
+            content: "";
+            //background-image: url();  šipka
+            background-size: contain;
+            background-repeat: no-repeat;
+
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            right: 10px;
+            top: 5px;
+
+            transition: all 0.5s;
+        }
+    }
+    .options-container {
+        background-color: #2f3640;
+        background-color: #f7f6ff;
+        color: #f5f6fa;
+        color: #2f3640;
+        max-height: 0;
+        width: 100%;
+        opacity: 0;
+        transition: all 0.5s;
+        border-radius: 8px;
+        overflow: hidden;
+        &::-webkit-scrollbar {
+            width: 8px;
+            background-color: #0d141f;
+            border-radius: 0 8px 8px 0;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: #525861;
+            border-radius: 0 8px 8px 0;
+        }
+        &.active {
+            max-height: 240px !important;
+            opacity: 1 !important;
+            overflow-y: scroll !important;
+        }
+
+        .option {
+            padding: 12px 24px;
+            border-bottom: 2px solid $main-wall;
+            cursor: pointer;
+            label {
+                cursor: pointer;
+            }
+        }
+        .option {
+            &:hover {
+                background-color: #d4d5d6;
+            }
+            .radio {
+                display: none;
+            }
+        }
+    }
+}
+
+.result-container {
+    background-color: $list-wall;
+    color: black;
+    //height: 400px;
+    width: 30%;
+    padding: 15px;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+    .func-inpt, label {
+        width: 60%;
+        margin: 5px auto;
+    }
+    .func-inpt {
+        border: none;
+        //border-bottom: 1px solid $main-wall;
+        border-radius: 5px;
+        background-color: rgb(236, 231, 231);
+        background-color: #2f364042;
+        padding: 10px 5px;
+    }
+    button {
+        width: 30%;
+        padding: 5px;
+        background-color: rgb(27, 189, 27);
+        color: $list-wall;
+        font-size: 25px;
+        margin: 20px 0 30px;
+        border-radius: 8px;
+        border: none;
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+    h1 {
+        color: $main-wall;
+        font-size: 30px;
+        margin: 10px 0;
+    }
+    h2 {
+        font-size: 20px;
+        color: $main-wall;
+    }
+}
+
+footer {
+    text-align: center;
+}
+
+.hide {
+    display: none;
+}
