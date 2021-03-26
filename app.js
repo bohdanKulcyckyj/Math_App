@@ -1,66 +1,50 @@
 const selected = document.querySelector(".selected");
 const optionsContainer = document.querySelector(".options-container");
-const optionsList = document.querySelectorAll(".option");
 const resultContainer = document.querySelector(".result-container");
-
-let addOption;
-let functionsContainer = [{name: "Složené úročení", id: "funkce1", method: slozeneUroceni1()}];
-
-for(let i = 0; i < functionsContainer.length; i++) {
-    addOption = `<div class="option" onclick=",${functionsContainer[i].method()}">
-                    <input type="radio" class="radio" name="category" id="${functionsContainer[i].id}" />
-                    <label for="${functionsContainer[i].id}">${functionsContainer[i].name}</label>
+//Převod Object na Array
+const destructuredFuncObject = Object.keys(functionsContainer).map((key) => [key, functionsContainer[key]]);;
+console.log(destructuredFuncObject);
+const searchData = "";
+//Vkládá seznam funkcí
+for(let i = 0; i < destructuredFuncObject.length; i++) {
+    let addOption = `<div class="option">
+                    <p>${destructuredFuncObject[i][1].name}</p>
                  </div>`;
     optionsContainer.innerHTML += addOption;
+}
+//Vkládá odkaz na funkci
+let optionsList = document.querySelectorAll(".option");
+for(let i = 0; i < optionsList.length; i++) {
+    optionsList[i].addEventListener('click', () => {
+        startingFunction(destructuredFuncObject[i][1]);
+        console.log(destructuredFuncObject[i][1]);
+    });
 }
 
 resultContainer.classList.add("hide");
 
+function startingFunction({name, inputs, method}) {
+    while(resultContainer.hasChildNodes()) {
+        resultContainer.removeChild(resultContainer.firstChild);
+    }
+    //resultContainer.innerHTML += calculation;
+    selected.innerHTML = name;
+    optionsContainer.classList.remove("active");
+    resultContainer.classList.remove("hide");
+    //console.log(name);
+    for(let i = 0; i < inputs.length; i++) {
+        let currentInput = `<label for="${inputs[i]}" class="function-label">${inputs[i]}</label><input id="input-${i}" name="${inputs[i]}" />`;
+        resultContainer.innerHTML += currentInput;
+    }
+
+    let button = `<button class="function-button" id="trigger-function" onclick="${method}">Spočitat</button>`;
+    resultContainer.innerHTML += button;
+}
+//Event Listeners
 selected.addEventListener("click", () => {
     optionsContainer.classList.toggle("active");
+    resultContainer.classList.add("hide");
 });
-
-optionsList.forEach(item => {
-    item.addEventListener("click", () => {
-        selected.innerHTML = item.querySelector("label").innerHTML;
-        optionsContainer.classList.remove("active");
-        resultContainer.classList.remove("hide");
-    });
+document.querySelector(".head-wrapper").addEventListener("click", () => {
+    window.location.reload();
 });
-
-
-function slozeneUroceni1() {
-    while(resultContainer.hasChildNodes()) {
-        resultContainer.removeChild(resultContainer.firstChild);
-    }
-    let calculation = `<label for="jistina">Jistina:</label>
-                       <input type="number" class="func-inpt" id="inpt-1" name="jistina" />
-                       <label for="urok">Úrok p.a.(v %):</label>
-                       <input type="number" class="func-inpt" id="inpt-2" name="urok" />
-                       <label for="roky">Počet let:</label>
-                       <input type="number" class="func-inpt" id="inpt-3" name="roky" />
-                        <button onclick="slozeneUroceni2()">Spočítat</button>`;
-
-    resultContainer.innerHTML += calculation;
-}
-
-function slozeneUroceni2() {
-    let jistina = document.querySelector("#inpt-1").value;
-    let urok = document.querySelector("#inpt-2").value / 100;
-    let roky = (document.querySelector("#inpt-3").value);
-    let vysledek = jistina * (1 + urok) ** roky;
-    vysledek = vysledek.toFixed(2);
-
-    console.log(jistina);
-    console.log(urok);
-    console.log(roky);
-    console.log(vysledek);
-
-    while(resultContainer.hasChildNodes()) {
-        resultContainer.removeChild(resultContainer.firstChild);
-    }
-
-    let zobrazeniVysledku = `<h2>Postup: ${jistina} * (1 + ${urok})<sup>${roky}</sup></h2>
-                             <h1>Výsledek: ${vysledek} Kč</h1>`;
-    resultContainer.innerHTML += zobrazeniVysledku;
-}

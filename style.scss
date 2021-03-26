@@ -1,3 +1,6 @@
+//variables
+$main-wall: #2f3640;
+$list-wall: #f7f6ff;
 //Global
 * {
     margin: 0;
@@ -12,18 +15,18 @@ body {
     background-color: #2f3640;
     color: white;
 }
-
-//variables
-$main-wall: #2f3640;
-$list-wall: #f7f6ff;
-
+header {
+    .head-wrapper {
+        cursor: pointer;
+    }
+}
 //dropdown list
 // udělat v js active toggle class
 //change to main??
 main {
     margin-top: 50px;
     padding: 32px;
-    height: 400px;
+    height: 80vh;
 }
 
 .select-box {
@@ -61,8 +64,9 @@ main {
         background-color: #f7f6ff;
         color: #f5f6fa;
         color: #2f3640;
-        max-height: 0;
         width: 100%;
+        max-height: 0;
+        //max-height: 40vh;
         opacity: 0;
         transition: all 0.5s;
         border-radius: 8px;
@@ -77,7 +81,7 @@ main {
             border-radius: 0 8px 8px 0;
         }
         &.active {
-            max-height: 240px !important;
+            max-height: 400px !important;
             opacity: 1 !important;
             overflow-y: scroll !important;
         }
@@ -153,5 +157,5 @@ footer {
 }
 
 .hide {
-    display: none;
+    display: none !important;
 }
